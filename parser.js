@@ -60,5 +60,3 @@ const parser = function(){
 }
 
 module.exports = parser;
-objet = parser();
-console.log(objet);
