@@ -46,9 +46,23 @@ const parser = function(){
         //pour chaque question je construis l'objet question constitué de l'intitulé de la question et de sa réponse
         parsedQuestion.forEach(question => {
             let matched =question.match(/~=([^~]+)~/);
+            let listening =question.match(/^(.*lis.*)|(.*Listening.*)/);
+            let grammar =question.match(/(.*Gra.*)/);
+            let vocabulary =question.match(/(.*Voc.*)/);
+            let reading =question.match(/(.*Reading.*)/);
             if(matched){
                 let answer = matched[1];
-                let q = new QUESTION(question,answer);
+                let type="reading";
+                if(listening){
+                     type = "listening"
+                } else if(grammar){
+                     type = "grammar"
+                }else if(vocabulary){
+                     type = "vocabulary"
+                }else if(reading){
+                     type = "reading"
+                }
+                let q = new QUESTION(question,answer,type);
                 objetQuestion.push(q);
             }
             
@@ -60,3 +74,5 @@ const parser = function(){
 }
 
 module.exports = parser;
+let list = parser();
+console.log(list);
