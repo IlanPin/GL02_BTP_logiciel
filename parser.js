@@ -74,5 +74,9 @@ const parser = function(){
 }
 
 module.exports = parser;
+<<<<<<< HEAD
 let list = parser();
 console.log(list);
+=======
+
+>>>>>>> main
