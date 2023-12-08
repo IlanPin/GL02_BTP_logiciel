@@ -1,13 +1,46 @@
-const parserExam = require('./parserExam');
+const parserExam = require('./parserExam');//appel du parser
 const fs = require("fs");
 const readlineSync = require("readline-sync");
 
-//================================recupeper le fichier=======================//
+
+//=============================choisir un fichier=========================================//
+
+let exam1;
+
+// Récupérer la liste des fichiers disponibles dans le répertoire
+const examfile = fs.readdirSync('./exam'); // Le chemin du répertoire où se trouvent ses propres fichiers
+const examfile2 = fs.readdirSync('./SujetB_data'); // Le chemin du répertoire où se trouvent ses propres fichiers
+
+// Afficher les fichiers disponibles à l'utilisateur
+console.log('Fichiers disponibles :');
+
+const allFiles = [...examfile, ...examfile2]; // Concaténation des deux tableaux
+
+console.log('Fichiers disponibles :');
+allFiles.forEach((file, index) => {
+    console.log(`${index + 1}. ${file}`);
+});
+
+
+// Demander à l'utilisateur de choisir le premier fichier
+let choix = readlineSync.questionInt('Choisissez un premier fichier en entrant son numéro : ');
+
+// Vérifier si le choix est valide
+if (choix > 0 && choix <= allFiles.length) {
+    exam1 = allFiles[choix - 1];
+    console.log(`Vous avez choisi : ${exam1}\n`);
+} else {
+    console.log('Choix invalide');
+}
+
+console.log(exam1);
+
+
+//================================fonction pour récupérer le fichier=======================//
 
 const isValid = function(file) {
 
     const list = parserExam(file);
-    console.log(list.length);
 
     let bool = false;
 
@@ -15,18 +48,7 @@ const isValid = function(file) {
         bool = true;
     }
 
-
-
-//==============technique set=====================//
-    /*const uniqueQuestions = new Set(list);
-    const isUnique = uniqueQuestions.size === list.length;
-
-    if (isUnique) {
-        console.log("Le tableau ne contient que des questions uniques.");
-    } else {
-        console.log("Le tableau contient des doublons de questions.");
-    }*/
-
+//================================verifier les doublons=======================//
 
     let isUnique = true;
     for (let i = 0; i < list.length; i++) {
@@ -50,6 +72,22 @@ const isValid = function(file) {
 
 }
 
+//========================================verifier la fichier====================================//
+let test;
 
-//console.log(isValid('SujetB_data/EM-U5-p36_37-Reading.gift'));
-//console.log(isValid('./exam/exam4.gift'));
+// Vérification en fonction du chemin du fichier choisi
+if (exam1.startsWith('exam')) {
+    test = isValid('./exam/'+exam1);
+} else {
+    test = isValid('./SujetB_data/'+exam1);
+}
+
+// Affichage du résultat
+
+if(test){
+    console.log("Le fichier est valide");
+}else {
+    console.log("Le fichier n'est pas valide");
+}
+
+
