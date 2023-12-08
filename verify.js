@@ -36,7 +36,7 @@ if (choix > 0 && choix <= allFiles.length) {
 console.log(exam1);
 
 
-//================================fonction pour récupérer le fichier=======================//
+//=================================fonction pour récupérer le fichier=======================//
 
 const isValid = function(file) {
 
