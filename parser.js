@@ -79,4 +79,3 @@ let list = parser();
 console.log(list);
 =======
 
->>>>>>> main
